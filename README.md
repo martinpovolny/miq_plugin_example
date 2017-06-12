@@ -11,6 +11,12 @@ Add this line to your application's Gemfile:
 gem 'miq_plugin_example'
 ```
 
+Or, if you prefer to work using local directory:
+
+```ruby
+gem 'miq_plugin_example', :path => File.expand_path('[ PATH TO PLUGIN e.g. ../plugins ]/miq_plugin_example', __dir__)
+```
+
 And then execute:
 ```bash
 $ bundle
