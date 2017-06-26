@@ -31,4 +31,5 @@ class DemoController < ApplicationController
   end
 
   menu_section :plug
+  toolbar :demo, :demo
 end
