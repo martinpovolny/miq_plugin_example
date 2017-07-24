@@ -10,7 +10,8 @@ class DemoController < ApplicationController
   include Mixins::GenericShowMixin
 
   def textual_group_list
-    [%i(properties tags), %i(relationships)]
+    #[%i(properties tags), %i(relationships)]
+    [%i(properties tags)]
   end
   helper_method :textual_group_list
 
@@ -35,5 +36,5 @@ class DemoController < ApplicationController
   end
 
   menu_section :plug
-  toolbar :demo, :demo
+  toolbar :demos, :demos
 end
