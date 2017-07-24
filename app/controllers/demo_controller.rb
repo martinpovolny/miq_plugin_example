@@ -23,11 +23,15 @@ class DemoController < ApplicationController
   end
 
   def self.model
-    'DemoVm'
+    Demo
   end
 
   def breadcrumb_name(_model)
     'Demo'
+  end
+
+  def listnav_filename
+    'demo'
   end
 
   menu_section :plug
