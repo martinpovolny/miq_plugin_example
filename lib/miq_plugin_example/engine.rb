@@ -6,6 +6,10 @@ module MiqPluginExample
       true
     end
 
+    initializer 'plugin.assets' do |app|
+      app.config.assets.paths  << root.join('assets', 'images').to_s
+    end
+
     initializer 'plugin' do
       Menu::CustomLoader.register(
         Menu::Section.new(:spike, N_('Plugin'), 'fa fa-map-pin', [
