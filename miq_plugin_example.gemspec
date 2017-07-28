@@ -5,13 +5,13 @@ require "miq_plugin_example/version"
 
 # Describe your gem and declare its dependencies:
 Gem::Specification.new do |s|
-  s.name        = "miq_plugin_example"
+  s.name        = "ovirt_dashboard_test_miq_plugin"
   s.version     = MiqPluginExample::VERSION
-  s.authors     = ["Martin Povolny"]
-  s.email       = ["mpovolny@redhat.com"]
+  s.authors     = ["Martin Povolny", "Vojtech Szocs"]
+  s.email       = ["mpovolny@redhat.com", "vszocs@redhat.com"]
   s.homepage    = "http://www.manageiq.org"
-  s.summary     = "ManageIQ plugin example"
-  s.description = "ManageIQ plugin example"
+  s.summary     = "oVirt dashboard test ManageIQ plugin"
+  s.description = "oVirt dashboard test ManageIQ plugin"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.md"]

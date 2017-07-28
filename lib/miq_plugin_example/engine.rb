@@ -8,12 +8,13 @@ module MiqPluginExample
 
     initializer 'plugin.assets' do |app|
       app.config.assets.paths  << root.join('assets', 'images').to_s
+      app.config.assets.paths  << root.join('assets', 'ovirt_dashboard').to_s
     end
 
     initializer 'plugin' do
       Menu::CustomLoader.register(
         Menu::Section.new(:spike, N_('Plugin'), 'fa fa-map-pin', [
-          Menu::Item.new('plug', N_('Test'), 'miq_report', {:feature => 'miq_report', :any => true}, '/plug'),
+          Menu::Item.new('plug', N_('oVirt dashboard test'), 'miq_report', {:feature => 'miq_report', :any => true}, '/plug'),
           Menu::Item.new('plug', N_('Demo'), 'miq_report', {:feature => 'miq_report', :any => true}, '/demo')
         ])
       )
