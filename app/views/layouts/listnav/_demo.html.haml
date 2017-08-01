@@ -1,3 +1,8 @@
 %img{:src => image_path('100/demo.png')}
 %br
 HALLO LISTNAV
+- @demo_tree = TreeBuilderDemo.new('demo_tree', 'demo', @sb)
+- if @demo_tree
+  .panel-group#accordion
+    = miq_accordion_panel(_("Demo"), true, "demo_tree") do
+      = render(:partial => "shared/tree", :locals  => {:tree => @demo_tree, :name => @demo_tree.name})
