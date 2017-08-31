@@ -1,0 +1,36 @@
+{
+  "name": "miq_plugin_example",
+  "version": "1.0.0",
+  "description": "Short description and motivation.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/karelhala/miq_plugin_example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/karelhala/miq_plugin_example/issues"
+  },
+  "homepage": "https://github.com/karelhala/miq_plugin_example#readme",
+  "dependencies": {
+    "@angular/common": "^4.3.3",
+    "@angular/compiler": "^4.3.3",
+    "@angular/core": "^4.3.3",
+    "@angular/forms": "^4.3.3",
+    "@angular/platform-browser": "^4.3.3",
+    "@manageiq/ui-components": "0.0.20",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "rxjs": "^5.4.2",
+    "zone.js": "^0.8.16"
+  }
+}
