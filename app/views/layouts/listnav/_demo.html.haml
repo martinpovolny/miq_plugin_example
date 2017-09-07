@@ -5,6 +5,9 @@ HALLO LISTNAV
 -# angular 1
 %hello
 
+-# angular 2+
+%hello-angular
+
 :javascript
   ManageIQ.angular.rxSubject.subscribe(function(event) {
     var eventType = event.type;
@@ -16,3 +19,5 @@ HALLO LISTNAV
   });
 
   miq_bootstrap('hello');
+
+= javascript_pack_tag 'miq_plugin_example/angular2-example'

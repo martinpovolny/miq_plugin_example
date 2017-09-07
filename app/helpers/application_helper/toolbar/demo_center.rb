@@ -12,5 +12,14 @@ class ApplicationHelper::Toolbar::DemoCenter < ApplicationHelper::Toolbar::Basic
                  'function'      => 'sendDataWithRx',
                  'function-data' => '{"type": "demo", "operation": "angular1"}'}
     ),
+    button(
+      :angular2_demo,
+      nil,
+      N_('Trigger angular2+ component'),
+      N_('angular'),
+      :data  => {'function'      => 'sendDataWithRx',
+                 'function-data' => '{"type": "demo", "operation": "angular"}'},
+      :klass => ApplicationHelper::Button::ButtonWithoutRbacCheck
+    ),
   ])
 end
