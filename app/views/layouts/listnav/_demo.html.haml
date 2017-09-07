@@ -2,11 +2,16 @@
 %br
 HALLO LISTNAV
 
+-# angular 1
 %hello
 
+-# React
 #hallo_react
 
 = javascript_pack_tag 'miq_plugin_example/hallo_react'
+
+-# angular 2+
+%hello-angular
 
 :javascript
   ManageIQ.angular.rxSubject.subscribe(function(event) {
@@ -22,3 +27,5 @@ HALLO LISTNAV
 
   //ReactDOM.render(React.createElement(HalloReact, { context: $('body') }), document.getElementById('hallo_react'));
   window.bind_me();
+
+= javascript_pack_tag 'miq_plugin_example/angular2-example'
