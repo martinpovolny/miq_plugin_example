@@ -4,6 +4,10 @@ HALLO LISTNAV
 
 %hello
 
+#hallo_react
+
+= javascript_pack_tag 'miq_plugin_example/hallo_react'
+
 :javascript
   ManageIQ.angular.rxSubject.subscribe(function(event) {
     var eventType = event.type;
@@ -15,3 +19,6 @@ HALLO LISTNAV
   });
 
   miq_bootstrap('hello');
+
+  //ReactDOM.render(React.createElement(HalloReact, { context: $('body') }), document.getElementById('hallo_react'));
+  window.bind_me();
