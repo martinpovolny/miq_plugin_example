@@ -4,13 +4,13 @@ class ApplicationHelper::Toolbar::DemoCenter < ApplicationHelper::Toolbar::Basic
     button(
       :vm_ownership,
       nil, #'pficon pficon-user fa-lg',
-      N_('set ownership for the selected items'),
-      N_('set ownership'),
+      N_('Trigger angular1 component'),
+      N_('angular.js'),
       #:url_parms => "main_div",
-			:data  => {#'toggle'        => 'modal',
+      :data  => {#'toggle'        => 'modal',
                  #'target'        => '#modal_param_div',
                  'function'      => 'sendDataWithRx',
-                 'function-data' => '{"type": "demo", "operation": "shutdown", "timeout": 1}'}
+                 'function-data' => '{"type": "demo", "operation": "angular1"}'}
     ),
   ])
 end
