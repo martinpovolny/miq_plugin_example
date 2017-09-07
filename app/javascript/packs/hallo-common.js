@@ -5,8 +5,6 @@ ManageIQ.angular.app.component('hello', {
 
       var eventType = event.type;
 
-      console.debug(event);
-
       if (eventType === 'demo') {
         $timeout(() => this.message = 'je tu');
       }
