@@ -1,3 +1,17 @@
 %img{:src => image_path('100/demo.png')}
 %br
 HALLO LISTNAV
+
+%hello
+
+:javascript
+  ManageIQ.angular.rxSubject.subscribe(function(event) {
+    var eventType = event.type;
+
+    console.debug(event);
+
+    if (eventType === 'demo') {
+    }
+  });
+
+  miq_bootstrap('hello');
