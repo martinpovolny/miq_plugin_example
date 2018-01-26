@@ -3,7 +3,7 @@ const ManageIQ = (<any> window).ManageIQ;
 
 @Component({
   selector: 'hello-angular',
-  template: `<h1>Hello {{name}}</h1>`
+  template: `<h1>Angular: Hello at {{name}}</h1>`
 })
 export class AppComponent implements OnInit {
   name = '(press the toolbar)';

@@ -2,23 +2,34 @@ class ApplicationHelper::Toolbar::DemoCenter < ApplicationHelper::Toolbar::Basic
   #custom_content('custom', :partial => 'demo/demo_toolbar')
   button_group('demo_bg', [
     button(
-      :vm_ownership,
-      nil, #'pficon pficon-user fa-lg',
+      :angularjs_demo,
+      'fa fa-cube fa-lg',
       N_('Trigger angular1 component'),
-      N_('angular.js'),
-      #:url_parms => "main_div",
+      N_('AngularJS'),
       :data  => {#'toggle'        => 'modal',
                  #'target'        => '#modal_param_div',
                  'function'      => 'sendDataWithRx',
-                 'function-data' => '{"type": "demo", "operation": "angular1"}'}
+                 'function-data' => '{"type": "demo", "operation": "angularjs"}'},
+      :klass => ApplicationHelper::Button::ButtonWithoutRbacCheck
     ),
     button(
       :angular2_demo,
-      nil,
+      'fa fa-cubes fa-lg',
       N_('Trigger angular2+ component'),
-      N_('angular'),
+      N_('Angular'),
       :data  => {'function'      => 'sendDataWithRx',
                  'function-data' => '{"type": "demo", "operation": "angular"}'},
+      :klass => ApplicationHelper::Button::ButtonWithoutRbacCheck
+    ),
+    button(
+      :react_demo,
+      'fa pficon-build fa-lg',
+      N_('Trigger React component'),
+      N_('React'),
+      :data  => {#'toggle'        => 'modal',
+                 #'target'        => '#modal_param_div',
+                 'function'      => 'sendDataWithRx',
+                 'function-data' => '{"type": "demo", "operation": "react"}'},
       :klass => ApplicationHelper::Button::ButtonWithoutRbacCheck
     ),
   ])

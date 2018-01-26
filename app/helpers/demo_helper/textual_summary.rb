@@ -18,6 +18,6 @@ module DemoHelper::TextualSummary
   end
 
   def textual_foobar
-    @record.title
+    @record.foobar
   end
 end

@@ -1,6 +1,10 @@
+%br
 %img{:src => image_path('100/demo.png')}
 %br
-HALLO LISTNAV
+<p>
+Below are 3 components implemented using 3 different libraries.
+All receive messages from the toolbar buttons above.
+</p>
 
 -# angular 1
 %hello
@@ -12,20 +16,9 @@ HALLO LISTNAV
 
 -# angular 2+
 %hello-angular
+= javascript_pack_tag 'miq_plugin_example/angular2-example'
 
 :javascript
-  ManageIQ.angular.rxSubject.subscribe(function(event) {
-    var eventType = event.type;
-
-    console.debug(event);
-
-    if (eventType === 'demo') {
-    }
-  });
-
   miq_bootstrap('hello');
-
-  //ReactDOM.render(React.createElement(HalloReact, { context: $('body') }), document.getElementById('hallo_react'));
   window.bind_me();
 
-= javascript_pack_tag 'miq_plugin_example/angular2-example'

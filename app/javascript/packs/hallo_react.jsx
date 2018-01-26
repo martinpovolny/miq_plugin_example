@@ -10,15 +10,15 @@ export default class HalloReact extends React.Component {
     ManageIQ.angular.rxSubject.subscribe((event) => {
       var eventType = event.type;
 
-      if (eventType === 'demo') {
-        this.setState({message: 'uz je tu'});
+      if (eventType === 'demo' && event.operation === 'react') {
+        this.setState({message: (new Date()).toString()});
       }
     });
   };
 
   render() {
     return (
-      <div>Hallo from React { this.state.message }</div>
+      <h1>React: Hallo at { this.state.message }</h1>
     )
   }
 }

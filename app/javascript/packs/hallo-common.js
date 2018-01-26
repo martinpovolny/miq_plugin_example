@@ -5,12 +5,12 @@ ManageIQ.angular.app.component('hello', {
 
       var eventType = event.type;
 
-      if (eventType === 'demo' && event.operation === 'angular1') {
-        $timeout(() => this.message = 'je tu');
+      if (eventType === 'demo' && event.operation === 'angularjs') {
+        $timeout(() => this.message = (new Date()).toString());
       }
     });
   }],
   template: `
-    <i>{{$ctrl.message}}</i>
+    <h1>AngularJS: Hallo at {{$ctrl.message}}</h1>
   `
 });
