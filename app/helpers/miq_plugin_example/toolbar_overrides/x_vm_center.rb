@@ -2,7 +2,7 @@ module MiqPluginExample
   module ToolbarOverrides
     class XVmCenter < ::ApplicationHelper::Toolbar::Override
       def self.record_valid?(record)
-        true
+        record.kind_of?(ManageIQ::Providers::Vmware::InfraManager::Vm)
       end
 
       button_group('custom_monitoring', [
@@ -18,7 +18,13 @@ module MiqPluginExample
               N_('Show Capacity & Utilization data for this VM'),
               N_('Custom Utilization'),
               :url_parms => "?display=performance",
-              :klass     => ApplicationHelper::Button::VmPerf),
+              :data  => {'function'      => 'sendDataWithRx',
+                         'function-data' => {:controller     => 'provider_dialogs', # this one is required
+                                             :modal_title    => N_('Custom Monitoring Fun'), # title of modal displaying the form
+                                             :component_name => 'CustomMonitoringForm', # name of React component implementing the form
+                                              }.to_json},
+              :klass => ApplicationHelper::Button::ButtonWithoutRbacCheck
+            ),
             button(
               :vm_timeline,
               'ff ff-timeline fa-lg',
