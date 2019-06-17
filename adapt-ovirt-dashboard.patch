@@ -1,0 +1,93 @@
+diff --git a/src/components/DashboardDataProvider.jsx b/src/components/DashboardDataProvider.jsx
+index ac20427..5a3d0c5 100644
+--- a/src/components/DashboardDataProvider.jsx
++++ b/src/components/DashboardDataProvider.jsx
+@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
+ const { element } = PropTypes
+ import $ from 'jquery'
+ import getPluginApi from '../plugin-api'
++import testData from '../test-data.json'
+ 
+ // TODO(vs) extract data fetch logic into services/data-fetch
+ 
+@@ -13,6 +14,11 @@ class DashboardDataProvider extends React.Component {
+   }
+ 
+   componentDidMount () {
++    if (testData) {
++      this._updateData({ data: this._transformData({ data: testData }) })
++      return
++    }
++
+     const request = this._jqXHR = $.ajax({
+       method: 'GET',
+       url: `${getPluginApi().engineBaseUrl()}webadmin/dashboard_data`,
+diff --git a/src/plugin-api-mock.js b/src/plugin-api-mock.js
+new file mode 100644
+index 0000000..5d47425
+--- /dev/null
++++ b/src/plugin-api-mock.js
+@@ -0,0 +1,29 @@
++import { defaultLocale, defaultTimeZone } from './constants'
++
++let pluginEventHandler = {}
++
++export default {
++
++  register (obj) {
++    pluginEventHandler = obj
++  },
++
++  ready () {
++    const initCallback = pluginEventHandler.UiInit
++    typeof initCallback === 'function' && initCallback()
++  },
++
++  addMainTab () {},
++  setSearchString () {},
++  revealPlace () {},
++  engineBaseUrl () {},
++
++  currentLocale () {
++    return defaultLocale
++  },
++
++  currentTimeZone () {
++    return defaultTimeZone
++  }
++
++}
+diff --git a/src/plugin-api.js b/src/plugin-api.js
+index 94ba44d..12b0f1b 100644
+--- a/src/plugin-api.js
++++ b/src/plugin-api.js
+@@ -1,6 +1,7 @@
+ import { pluginName } from './constants'
++import apiMock from './plugin-api-mock'
+ 
+-let api
++let api = apiMock
+ 
+ const getPluginApi = () => {
+   api = api || window.top.pluginApi(pluginName)
+diff --git a/src/test-data.json b/src/test-data.json
+new file mode 100644
+index 0000000..3338766
+--- /dev/null
++++ b/src/test-data.json
+@@ -0,0 +1 @@
++{"globalUtilization":{"cpu":{"used":93.85726127451429,"history":[{"date":1501086120366,"value":46.12335941868998},{"date":1501089720366,"value":34.15401084508227},{"date":1501093320366,"value":90.86552769449668},{"date":1501096920366,"value":72.75715382668363},{"date":1501100520366,"value":25.78493559035642},{"date":1501104120366,"value":59.17776420276423},{"date":1501107720366,"value":86.84630098164028},{"date":1501111320366,"value":77.1915312926033},{"date":1501114920366,"value":68.75440779134937},{"date":1501118520366,"value":12.493808926763894},{"date":1501122120366,"value":64.73972322376628},{"date":1501125720366,"value":64.01474936018153},{"date":1501129320366,"value":96.15321139239737},{"date":1501132920366,"value":68.56034129290562},{"date":1501136520366,"value":2.558476560691303},{"date":1501140120366,"value":72.76886562834216},{"date":1501143720366,"value":24.214364674118226},{"date":1501147320366,"value":97.45807218495612},{"date":1501150920366,"value":52.74251640100528},{"date":1501154520366,"value":36.78532113936315},{"date":1501158120366,"value":55.20442568461059},{"date":1501161720366,"value":65.6140526345515},{"date":1501165320366,"value":14.91565643953139},{"date":1501168920366,"value":73.25113809369287}],"utilization":{"vms":[{"name":"fake_vm0","used":0.0,"total":81.6290787135701,"trend":"same"}],"hosts":[{"name":"fake_host_0","used":28.0,"total":86.90185908406339,"trend":"same"},{"name":"fake_host_1","used":7.0,"total":36.46967944192518,"trend":"same"},{"name":"fake_host_2","used":44.0,"total":62.657921779728596,"trend":"up"}]},"total":100.0,"allocated":1496.923076923077,"overcommit":1.5384615384615385},"memory":{"used":38.50852539909752,"history":[{"date":1501086120366,"value":73.68971000032694},{"date":1501089720366,"value":75.55663320355382},{"date":1501093320366,"value":13.149152322005586},{"date":1501096920366,"value":60.68311802865405},{"date":1501100520366,"value":11.451981241702313},{"date":1501104120366,"value":28.627210624420506},{"date":1501107720366,"value":45.660822589432314},{"date":1501111320366,"value":87.71540240562982},{"date":1501114920366,"value":2.947981743424255},{"date":1501118520366,"value":50.62372961155428},{"date":1501122120366,"value":20.84421576700083},{"date":1501125720366,"value":5.753185432386387},{"date":1501129320366,"value":84.56311876902554},{"date":1501132920366,"value":79.47884224264597},{"date":1501136520366,"value":62.10010045455009},{"date":1501140120366,"value":2.08319507920135},{"date":1501143720366,"value":67.1955951451405},{"date":1501147320366,"value":16.240579842117796},{"date":1501150920366,"value":80.26412216022723},{"date":1501154520366,"value":98.84125112659515},{"date":1501158120366,"value":28.903004001763264},{"date":1501161720366,"value":47.01613125577534},{"date":1501165320366,"value":22.548469983252495},{"date":1501168920366,"value":1.293908161436108}],"utilization":{"vms":[{"name":"fake_vm0","used":10.0,"total":40.487028026561234,"trend":"up"},{"name":"fake_vm1","used":1.0,"total":83.76034633884147,"trend":"up"},{"name":"fake_vm2","used":11.0,"total":29.8526409960588,"trend":"up"},{"name":"fake_vm3","used":18.0,"total":22.586221963593587,"trend":"same"},{"name":"fake_vm4","used":5.0,"total":18.545773465987047,"trend":"down"}],"hosts":[{"name":"fake_host_0","used":15.0,"total":86.27124023489836,"trend":"down"},{"name":"fake_host_1","used":5.0,"total":10.072504015317184,"trend":"same"}]},"allocated":851.1627906976744,"overcommit":711.6279069767442,"total":43.0},"storage":{"used":0.38912200641320405,"history":[{"date":1501086120366,"value":69.84747326422105},{"date":1501089720366,"value":35.20896047181866},{"date":1501093320366,"value":38.255898666197496},{"date":1501096920366,"value":26.704860828202005},{"date":1501100520366,"value":87.84416517435353},{"date":1501104120366,"value":28.13811301969321},{"date":1501107720366,"value":10.09923116998982},{"date":1501111320366,"value":18.73103228434544},{"date":1501114920366,"value":90.16127205927351},{"date":1501118520366,"value":15.613932635183803},{"date":1501122120366,"value":50.93096802318211},{"date":1501125720366,"value":18.773651416599936},{"date":1501129320366,"value":38.327926851169124},{"date":1501132920366,"value":58.14302022220708},{"date":1501136520366,"value":21.562903337963157},{"date":1501140120366,"value":36.85176869574948},{"date":1501143720366,"value":23.018692832731624},{"date":1501147320366,"value":15.953683475117996},{"date":1501150920366,"value":91.71543892104049},{"date":1501154520366,"value":35.97573125970379},{"date":1501158120366,"value":66.68203473681437},{"date":1501161720366,"value":72.62498695010075},{"date":1501165320366,"value":80.2453072168028},{"date":1501168920366,"value":57.72370769800127}],"utilization":{"vms":[{"name":"fake_vm0","used":15.0,"total":21.95104993357988,"trend":"up"},{"name":"fake_vm1","used":43.0,"total":89.94620819364665,"trend":"up"},{"name":"fake_vm2","used":78.0,"total":98.73939006282403,"trend":"down"},{"name":"fake_vm3","used":1.0,"total":50.266478594004404,"trend":"same"},{"name":"fake_vm4","used":3.0,"total":7.006579305860871,"trend":"down"}],"storage":[{"name":"fake_storage_domain_0","used":13.0,"total":86.66361602087234,"trend":"up"},{"name":"fake_storage_domain_1","used":15.0,"total":46.75365223144089,"trend":"down"},{"name":"fake_storage_domain_2","used":46.0,"total":84.68825106802366,"trend":"down"}]},"allocated":69000.0,"overcommit":12000.0,"total":1.0}},"heatMapData":{"cpu":[{"value":83.81013205646937,"name":"fake_cluster_0"},{"value":34.8480707616808,"name":"fake_cluster_1"},{"value":63.926319802327434,"name":"fake_cluster_2"},{"value":87.82997057077317,"name":"fake_cluster_3"},{"value":19.247298914549926,"name":"fake_cluster_4"},{"value":83.13755629659538,"name":"fake_cluster_5"},{"value":23.95172000398165,"name":"fake_cluster_6"},{"value":49.03084594766336,"name":"fake_cluster_7"},{"value":29.181585532500275,"name":"fake_cluster_8"}],"memory":[{"value":60.58387135645326,"name":"fake_cluster_0"},{"value":85.59327741634061,"name":"fake_cluster_1"},{"value":60.652510665963675,"name":"fake_cluster_2"},{"value":81.04298025425314,"name":"fake_cluster_3"},{"value":23.349990397578836,"name":"fake_cluster_4"},{"value":45.56600785610151,"name":"fake_cluster_5"},{"value":15.161415943875777,"name":"fake_cluster_6"},{"value":98.73474379975947,"name":"fake_cluster_7"},{"value":4.449786322501614,"name":"fake_cluster_8"}],"storage":[{"value":34.61340369337707,"name":"fake_storage_node_0"},{"value":48.812446180588346,"name":"fake_storage_node_1"},{"value":74.73651129567017,"name":"fake_storage_node_2"},{"value":19.31895701365427,"name":"fake_storage_node_3"},{"value":12.640427113535967,"name":"fake_storage_node_4"},{"value":24.159672731979008,"name":"fake_storage_node_5"},{"value":89.6311517714526,"name":"fake_storage_node_6"},{"value":1.6836496253898159,"name":"fake_storage_node_7"}]},"inventory":{"dc":{"totalCount":22,"statuses":[{"type":"warning","count":5,"statusValues":["uninitialized","maintenance","contend"]},{"type":"up","count":3,"statusValues":["up"]},{"type":"down","count":3,"statusValues":["notoperational","nonresponsive"]}]},"cluster":{"totalCount":25,"statuses":[]},"host":{"totalCount":125,"statuses":[{"type":"warning","count":52,"statusValues":["unassigned","maintenance","installing","reboot","preparingformaintenance","pendingapproval","connecting","installingos","kdumping"]},{"type":"up","count":8,"statusValues":["up"]},{"type":"down","count":51,"statusValues":["down","nonresponsive","error","installfailed","nonoperational"]}]},"storage":{"totalCount":10,"statuses":[{"type":"warning","count":8,"statusValues":["uninitialized","unattached","inactive","maintenance","preparingformaintenance","detaching","activating"]},{"type":"up","count":2,"statusValues":["active"]},{"type":"down","count":4,"statusValues":["unknown","locked"]}]},"vm":{"totalCount":253,"statuses":[{"type":"warning","count":113,"statusValues":["paused","migratingfrom","migratingto","unknown","waitforlaunch","suspended","imageillegal"]},{"type":"up","count":17,"statusValues":["poweringup","up","savingstate","restoringstate","poweringdown"]},{"type":"down","count":19,"statusValues":["down","notresponding","rebootinprogress","imagelocked"]}]},"event":{"totalCount":169,"statuses":[{"type":"alert","count":3,"statusValues":["alert"]},{"type":"warning","count":1,"statusValues":["warning"]},{"type":"error","count":5,"statusValues":["error"]}]},"volume":{"totalCount":95,"statuses":[{"type":"warning","count":67,"statusValues":["unknown","warning"]},{"type":"up","count":17,"statusValues":["up"]},{"type":"down","count":53,"statusValues":["down"]}]}}}
+\ No newline at end of file
+diff --git a/webpack.config.js b/webpack.config.js
+index 0cf8773..c50b7fb 100644
+--- a/webpack.config.js
++++ b/webpack.config.js
+@@ -74,7 +74,7 @@ if (isDev || isProd) {
+     // TODO(vs) use CommonsChunkPlugin to extract common vendor libs into separate chunk
+     // https://webpack.github.io/docs/code-splitting.html#split-app-and-vendor-code
+     'plugin': ['babel-polyfill', './src/plugin.js'],
+-    'main-tab': ['babel-polyfill', './src/main-tab.jsx']
++    'main-tab': ['babel-polyfill', './src/plugin.js', './src/main-tab.jsx']
+   }
+   config.output = {
+     filename: '[name].js',
